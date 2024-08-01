@@ -27,9 +27,9 @@ func (d *Discord) Init(db *gorm.DB) {
 		return
 	}
 
-	log.Println("Bot is now running.")
+	log.Println("Bot is now running. " + client.State.User.Username)
 
-	client.AddHandler(createMessage)
+	client.AddHandler(CreateMessage)
 
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
@@ -38,12 +38,4 @@ func (d *Discord) Init(db *gorm.DB) {
 	// Cleanly close down the Discord session.
 	client.Close()
 
-}
-func createMessage(s *discordgo.Session, m *discordgo.MessageCreate) {
-	if m.Author.ID == s.State.User.ID {
-		return
-	}
-	if m.Content == "lesgo" {
-		s.ChannelMessageSendReply(m.ChannelID, "Hi", m.Reference())
-	}
 }

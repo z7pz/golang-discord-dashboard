@@ -19,7 +19,7 @@ func main() {
 
 	var wg sync.WaitGroup
 	wg.Add(2)
-
+	// TODO setup enviroment variables
 	go func() {
 		defer wg.Done()
 		client := discord.Discord{Token: "my token"}
